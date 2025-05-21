@@ -1,0 +1,75 @@
+# Projeto de Gestão de Contratos de Serviços em Nuvem
+
+## Visão Geral
+Este projeto é um sistema de gerenciamento de contratos de serviços em nuvem, que permite o cadastro de clientes, registro de contratos para diferentes modelos de serviço (SaaS, PaaS, IaaS), cálculo de faturas mensais, verificação do cumprimento de SLA (Service Level Agreement) e geração de relatórios financeiros por cliente.
+
+## Tecnologias Utilizadas
+- Linguagem: Java
+- Data e Hora: java.time (LocalDate, DateTimeFormatter)
+- Entrada de dados: Scanner para interação via linha de comando
+- Estrutura orientada a objetos com uso de classes abstratas, interfaces e herança
+
+## Estrutura do Projeto e Funções Principais
+
+### Classes Principais
+
+#### Main.java
+Classe principal que implementa um menu interativo via linha de comando para:
+- Cadastrar clientes
+- Cadastrar contratos (SaaS, PaaS, IaaS)
+- Registrar utilização mensal e calcular fatura
+- Verificar cumprimento de SLA
+- Gerar relatório financeiro por cliente
+
+#### Cliente.java
+Representa um cliente com atributos:
+- nome: Nome do cliente
+- identificador: Identificador único do cliente
+
+#### ContratoServicoNuvem.java (Classe Abstrata)
+Define os atributos e métodos comuns a todos os contratos de serviços em nuvem:
+- cliente: Cliente associado ao contrato
+- sla: Nível de SLA acordado
+- dataInicio e dataFim: Período do contrato
+- renovacaoAutomatica: Indica se o contrato é renovado automaticamente
+- Métodos abstratos:
+  - calcularFatura(): Calcula o valor da fatura do contrato
+  - verificarSLA(): Verifica se o SLA foi cumprido
+  - renovarContrato(): Realiza a renovação do contrato
+- Método concreto:
+  - gerarResumoContrato(): Gera um resumo textual do contrato
+
+#### ContratoSaaS.java
+Implementa um contrato SaaS (Software as a Service) com:
+- número de usuários como atributo adicional
+- cálculo da fatura baseado no número de usuários e meses contratados
+- desconto aplicado se o SLA não for cumprido
+- renovação automática ou manual do contrato
+- resumo detalhado do contrato
+
+#### ContratoPaaS.java e ContratoIaaS.java
+(Implementações similares ao ContratoSaaS, adaptadas para PaaS e IaaS, com atributos específicos como uso de aplicações, CPU, armazenamento, etc.)
+
+#### FaturaMensal.java
+Representa a fatura mensal gerada para um cliente, associada a um contrato e um mês de referência.
+
+#### RelatorioFinanceiro.java
+Gera relatórios financeiros baseados nas faturas mensais, permitindo análise por cliente.
+
+#### HistoricoSLA.java
+Registra o histórico de SLA para contratos, incluindo datas e métricas relevantes.
+
+## Aspectos Técnicos
+- Uso extensivo de orientação a objetos para modelar entidades do domínio
+- Implementação de interfaces para garantir contratos de funcionalidades (Faturavel, Renovavel, RelatorioGeravel)
+- Tratamento de entrada de dados e validação no menu interativo
+- Cálculo de faturas com base em uso e SLA
+- Verificação de SLA simplificada (exemplo: SLA mínimo de 99%)
+- Renovação automática de contratos com possibilidade de renovação manual
+
+## Como Utilizar
+- Executar a classe Main para iniciar o menu interativo
+- Seguir as opções para cadastrar clientes, contratos, registrar uso, verificar SLA e gerar relatórios
+
+## Considerações Finais
+Este sistema é uma base para gerenciamento de contratos de serviços em nuvem, podendo ser expandido com funcionalidades adicionais como persistência em banco de dados, interface gráfica, e integração com sistemas externos.
